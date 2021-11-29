@@ -31,7 +31,8 @@ jump = False
 crouch = False
 moveRight = False
 moveLeft = False
-cactus = False
+cactus1 = False
+cactus2 = False
 
 while done:
     clock.tick(30)
@@ -82,19 +83,33 @@ while done:
     #    xcoor -= 0.1
     #    moveLeft = False
 
-    if cactus == False:
+    if cactus1 == False:
         cactSpawn = random.randint(0, 1000)
         print(cactSpawn)
         if cactSpawn < 12:
-            cactus = True
+            cactus1 = True
     
-    if cactus:
+    if cactus1:
         xcact -= cactSpd
         pg.draw.rect(screen, GREEN, [xcact, ycact, -10, -40], 5)
         #print(xcact)
-        if xcact <= 10:
+        if xcact <= 20:
             xcact = 700
-            cactus = False
+            cactus1 = False
+
+    if cactus2 == False:
+        cactSpawn = random.randint(0, 1000)
+        print(cactSpawn)
+        if cactSpawn < 12:
+            cactus2 = True
+    
+    if cactus2:
+        xcact -= cactSpd
+        pg.draw.rect(screen, GREEN, [xcact, ycact, -10, -40], 5)
+        #print(xcact)
+        if xcact <= 20:
+            xcact = 700
+            cactus2 = False
 
     pg.draw.rect(screen, BLACK, [xcoor, ycoor, -20, crouchSize], 5)
 
