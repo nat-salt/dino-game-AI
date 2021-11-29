@@ -1,4 +1,5 @@
 import pygame as pg
+import random
 
 pg.init()
 
@@ -18,13 +19,23 @@ xcoor = 75
 ycoor = size[1]*0.8
 crouchSize = -50
 
+xcact = 600
+ycact = size[1]*0.8
+
+jumpSpd = 12
+fallSpd = 7
+cactSpd = 5
+
 fall = False
 jump = False
 crouch = False
 moveRight = False
 moveLeft = False
+cactus = False
 
 while done:
+    clock.tick(30)
+
     for event in pg.event.get():
         if event.type == pg.QUIT:
             done = False
@@ -47,14 +58,14 @@ while done:
     crouchSize = -50
 
     if jump:
-        ycoor -= 0.1
+        ycoor -= jumpSpd
         if ycoor <= 240:
             ycoor = 240
             jump = False
             fall = True
 
     if fall:
-        ycoor += 0.1
+        ycoor += fallSpd
         if ycoor >= size[1]*0.8:
             ycoor = size[1]*0.8
             fall = False
@@ -70,6 +81,20 @@ while done:
     #if moveLeft:
     #    xcoor -= 0.1
     #    moveLeft = False
+
+    if cactus == False:
+        cactSpawn = random.randint(0, 1000)
+        print(cactSpawn)
+        if cactSpawn < 12:
+            cactus = True
+    
+    if cactus:
+        xcact -= cactSpd
+        pg.draw.rect(screen, GREEN, [xcact, ycact, -10, -40], 5)
+        #print(xcact)
+        if xcact <= 10:
+            xcact = 700
+            cactus = False
 
     pg.draw.rect(screen, BLACK, [xcoor, ycoor, -20, crouchSize], 5)
 
